@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { AiFillBug } from "react-icons/ai";
 import { RiFindReplaceLine } from "react-icons/ri";
-// import classnames from "classnames";
+import classnames from "classnames";
 
 const NavBar = () => {
   const currentPath = usePathname();
@@ -24,11 +24,11 @@ const NavBar = () => {
         {links.map((link) => (
           <Link
             key={link.href}
-            // className={classnames({
-            //   "text-zinc-900": link.href === currentPath,
-            //   "text-zinc-500": link.href !== currentPath,
-            //   "hover:text-zinc-800 transition-colors": true,
-            // })}
+            className={classnames({
+              "text-zinc-900": link.href === currentPath,
+              "text-zinc-500": link.href !== currentPath,
+              "hover:text-zinc-800 transition-colors": true,
+            })}
             href={link.href}
           >
             {link.label}
