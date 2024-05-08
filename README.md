@@ -5,6 +5,6 @@ Tech stack used:
 1. NextJS
 2. TypeScript
 3. Tailwind CSS
-4. Radix UI
+4. Radix UI (Radix Themes)
 5. Prisma
 6. NextAuth.js
