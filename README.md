@@ -8,3 +8,4 @@ Tech stack used:
 4. Radix UI (Radix Themes)
 5. Prisma
 6. NextAuth.js
+7. React Hook Form
