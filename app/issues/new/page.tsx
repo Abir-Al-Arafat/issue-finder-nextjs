@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Callout, Text, TextArea, TextField } from "@radix-ui/themes";
+import {
+  Button,
+  Callout,
+  Spinner,
+  Text,
+  TextArea,
+  TextField,
+} from "@radix-ui/themes";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import SimpleMDE from "react-simplemde-editor";
@@ -11,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Loader from "@/app/components/Loader";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -25,6 +33,7 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
+  const [isSubmitting, setSubmitting] = useState(false);
   return (
     <div className="max-w-xl ">
       {error && (
@@ -39,10 +48,12 @@ const NewIssuePage = () => {
         className="space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setSubmitting(true);
             console.log(data);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
+            setSubmitting(false);
             setError("An unexpected error occured");
             console.log("error", error);
           }
@@ -66,7 +77,9 @@ const NewIssuePage = () => {
 
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button>Submit New Issue</Button>
+        <Button disabled={isSubmitting} className="cursor-pointer">
+          Submit New Issue {isSubmitting && <Loader />}
+        </Button>
       </form>
     </div>
   );
