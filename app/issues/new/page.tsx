@@ -13,7 +13,7 @@ import axios from "axios";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
@@ -34,6 +34,19 @@ const NewIssuePage = () => {
   });
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
+
+  const onSubmit = async (data: FormEvent<HTMLFormElement>) => {
+    try {
+      setSubmitting(true);
+      console.log(data);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setSubmitting(false);
+      setError("An unexpected error occured");
+      console.log("error", error);
+    }
+  };
   return (
     <div className="max-w-xl ">
       {error && (
@@ -44,21 +57,7 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        className="space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setSubmitting(true);
-            console.log(data);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setSubmitting(false);
-            setError("An unexpected error occured");
-            console.log("error", error);
-          }
-        })}
-      >
+      <form className="space-y-3" onSubmit={onSubmit}>
         {/* <TextField.Root>
         <TextField.Input placeholder="Title" />
       </TextField.Root> */}
