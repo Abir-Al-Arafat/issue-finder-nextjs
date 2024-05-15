@@ -1,5 +1,5 @@
 import { Table } from "@radix-ui/themes";
-import React from "react";
+import React, { useState } from "react";
 import IssueStatusBadge from "../components/IssueStatusBadge";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -10,7 +10,8 @@ const LoadingIssuesPage = () => {
 
   return (
     <div>
-      <IssueActions />
+      <IssueActions isLoading={true} />
+      {/* <Skeleton height="144px" width="144px" /> */}
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
