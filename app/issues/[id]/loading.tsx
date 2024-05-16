@@ -1,11 +1,7 @@
-import IssueStatusBadge from "@/app/components/IssueStatusBadge";
-import prisma from "@/prisma/client";
-import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Box, Card, Flex } from "@radix-ui/themes";
 import delay from "delay";
-import { notFound } from "next/navigation";
 import React from "react";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { Skeleton } from "@/app/components";
 
 const LoadingIssueDetailsPage = async () => {
   await delay(2000);
