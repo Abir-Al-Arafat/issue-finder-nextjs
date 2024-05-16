@@ -19,11 +19,13 @@ import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Loader from "@/app/components/Loader";
+import delay from "delay";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
-const NewIssuePage = () => {
+const NewIssuePage = async () => {
   const router = useRouter();
+  // await delay(2000);
   const {
     register,
     control,

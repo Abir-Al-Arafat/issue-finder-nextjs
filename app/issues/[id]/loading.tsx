@@ -1,6 +1,6 @@
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import { Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import delay from "delay";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -10,18 +10,18 @@ import "react-loading-skeleton/dist/skeleton.css";
 const LoadingIssueDetailsPage = async () => {
   await delay(2000);
   return (
-    <div>
-      <Heading>
-        <Skeleton />
-      </Heading>
+    <Box className="max-w-xl">
+      {/* <Heading> */}
+      <Skeleton />
+      {/* </Heading> */}
       <Flex className="space-x-3" my="2">
-        <Skeleton />
-        <Skeleton />
+        <Skeleton width="5rem" />
+        <Skeleton width="8rem" />
       </Flex>
-      <Card>
-        <Skeleton />
+      <Card className="prose" mt="4">
+        <Skeleton count={3} />
       </Card>
-    </div>
+    </Box>
   );
 };
 
