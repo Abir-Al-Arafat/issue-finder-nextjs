@@ -1,11 +1,12 @@
 import { Avatar, Box, DropdownMenu, Text } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Skeleton from "@/app/components/Skeleton";
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  if (status === "loading") return null;
+  if (status === "loading") return <Skeleton width="40px" height="20px" />;
 
   if (status === "unauthenticated")
     return (
