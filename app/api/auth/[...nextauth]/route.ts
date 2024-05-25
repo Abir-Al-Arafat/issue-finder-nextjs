@@ -14,5 +14,17 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
+  debug: true,
+  logger: {
+    error(code, metadata) {
+      console.error(code, metadata);
+    },
+    warn(code) {
+      console.warn(code);
+    },
+    debug(code, metadata) {
+      console.debug(code, metadata);
+    },
+  },
 });
 export { handler as GET, handler as POST };
