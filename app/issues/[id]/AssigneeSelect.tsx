@@ -1,17 +1,18 @@
 "use client";
 
 import { User } from "@prisma/client";
-import { Select } from "@radix-ui/themes";
+import { Blockquote, Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
+import Skeleton from "../../components/Skeleton";
 
 const AssigneeSelect = () => {
   const {
     data: users,
     error,
     isLoading,
-  } = useQuery<User[]>({
+  } = useQuery<User[], AxiosError>({
     queryKey: ["users"],
     queryFn: () => axios.get("/api/users").then((res) => res.data),
     // fetches data in every 60 seconds
@@ -28,6 +29,17 @@ const AssigneeSelect = () => {
 
   //   fetchUsers();
   // }, []);
+
+  // console.log("error", error?.response.status);
+
+  if (isLoading) return <Skeleton height="32px" />;
+
+  if (error)
+    return (
+      <Blockquote color="crimson">
+        Error{error?.response?.status}: Users not found
+      </Blockquote>
+    );
 
   return (
     <Select.Root disabled={isLoading}>
