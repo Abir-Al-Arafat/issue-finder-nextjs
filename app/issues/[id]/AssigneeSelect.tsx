@@ -14,6 +14,9 @@ const AssigneeSelect = () => {
   } = useQuery<User[]>({
     queryKey: ["users"],
     queryFn: () => axios.get("/api/users").then((res) => res.data),
+    // fetches data in every 60 seconds
+    staleTime: 60 * 1000, //60s
+    retry: 3,
   });
   // const [users, setUsers] = useState<User[]>([]);
 
@@ -27,7 +30,7 @@ const AssigneeSelect = () => {
   // }, []);
 
   return (
-    <Select.Root>
+    <Select.Root disabled={isLoading}>
       <Select.Trigger placeholder="Assign..." />
       <Select.Content>
         <Select.Group>
