@@ -12,7 +12,15 @@ interface Props {
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
-  const issues = await prisma.issue.findMany();
+  const statuses = Object.values(Status);
+  const status = statuses.includes(searchParams.status)
+    ? searchParams.status
+    : undefined;
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: status,
+    },
+  });
   console.log("sp", searchParams.status);
   // await delay(2000);
   return (
