@@ -9,7 +9,7 @@ interface Props {
 
 const IssueActions = ({ isLoading = false }: Props) => {
   return (
-    <Flex mb="5" justify="between">
+    <Flex justify="between">
       <IssueStatusFilter />
       <Button loading={isLoading}>
         <Link href="/issues/new">New Issue</Link>
