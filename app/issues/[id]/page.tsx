@@ -9,6 +9,7 @@ import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
+import { Metadata } from "next/types";
 
 interface Props {
   params: { id: string };
@@ -22,7 +23,7 @@ const IssueDetailPage = async ({ params }: Props) => {
   });
 
   if (!issue) notFound();
-  await delay(2000);
+  // await delay(2000);
   return (
     <Grid columns={{ initial: "1", sm: "5" }} gap="5">
       <Box className="md:col-span-4">
@@ -40,5 +41,15 @@ const IssueDetailPage = async ({ params }: Props) => {
     </Grid>
   );
 };
+
+export async function generateMetadata({ params }: Props) {
+  const issue = await prisma.issue.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+  return {
+    title: `Issue ${issue?.title} | Issue Tracker`,
+    description: `Details of issue ${issue?.id}`,
+  };
+}
 
 export default IssueDetailPage;
