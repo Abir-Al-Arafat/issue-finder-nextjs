@@ -10,3 +10,5 @@ Tech stack used:
 6. Prisma
 7. NextAuth.js
 8. React Hook Form
+
+Library for bar chart: https://recharts.org/en-US/
