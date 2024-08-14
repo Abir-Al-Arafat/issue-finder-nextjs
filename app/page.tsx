@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Pagination from "./components/Pagination";
+import IssueChart from "./IssueChart";
 import LatestIssues from "./LatestIssues";
 import IssueSummary from "./IssueSummary";
 import prisma from "@/prisma/client";
@@ -19,6 +20,11 @@ export default async function Home({
       {" "}
       <LatestIssues />
       <IssueSummary
+        open={openCount}
+        inProgress={inProgressCount}
+        closed={closedCount}
+      />
+      <IssueChart
         open={openCount}
         inProgress={inProgressCount}
         closed={closedCount}
